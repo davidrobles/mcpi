@@ -20,7 +20,7 @@ MCPI.Controller.prototype = {
     },
 
     loop: function() {
-        this.start();
+        this.startAnimation();
         this.looping = true;
     },
 
@@ -32,7 +32,7 @@ MCPI.Controller.prototype = {
             }.bind(this));
         } else if (this.looping) {
             this.reset();
-            this.start();
+            this.startAnimation();
         }
     },
 
@@ -41,7 +41,7 @@ MCPI.Controller.prototype = {
         this.model.reset();
     },
 
-    start: function() {
+    startAnimation: function() {
         this.model.reset();
         this.play = true;
         this.trigger("start");
@@ -50,13 +50,16 @@ MCPI.Controller.prototype = {
         }.bind(this));
     },
 
-    startFast: function() {
+    start: function() {
         this.model.reset();
         this.play = true;
         this.trigger("start");
-        window.requestNextAnimationFrame(function() {
-            this.next();
-        }.bind(this));
+        while (this.model.counters.total < this.sampleSize) {
+            console.log('Total:       ' + this.model.counters.total);
+            console.log('Sample size: ' + this.sampleSize);
+            console.log("-----");
+            this.model.addRandomPoints(this.stepSize);
+        }
     },
 
     trigger: function(event) {

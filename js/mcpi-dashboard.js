@@ -32,7 +32,7 @@ MCPI.DashboardView.prototype = {
     addStartResetListener: function() {
         this.startButton.addEventListener("click", function() {
             if (this.startButton.value === "start") {
-                this.controller.start();
+                this.controller.startAnimation();
             } else if (this.startButton.value === "stop") {
                 this.controller.reset();
             }
