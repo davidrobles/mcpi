@@ -1,17 +1,9 @@
 var MCPI = MCPI || {};
 
-MCPI.inside = function(point) {
-    return (Math.pow(point.x, 2) + Math.pow(point.y, 2)) < 1;
-};
-
-MCPI.randomPoint = function() {
-    return {
-        x: Math.random() * 2 - 1,
-        y: Math.random() * 2 - 1
-    };
-};
-
-MCPI.Model = function() {
+MCPI.Model = function(options) {
+    this.sampleSize = options.sampleSize;
+    this.stepSize = options.stepSize;
+    this.validateSampleAndStepSizes();
     this.counters = {
         inside: 0,
         outside: 0,
@@ -45,6 +37,14 @@ MCPI.Model.prototype = {
         return (4.0 * this.counters.inside) / this.counters.total;
     },
 
+    isFinished: function() {
+        return this.model.counters.total >= this.model.sampleSize;
+    },
+
+    next: function() {
+        this.addRandomPoints(this.stepSize);
+    },
+
     reset: function() {
         this.counters.inside = 0;
         this.counters.outside = 0;
@@ -56,7 +56,7 @@ MCPI.Model.prototype = {
         var args = Array.prototype.slice.call(arguments, 1);
         this.handlers.forEach(function(handler) {
             if (event in handler) {
-                handler[event].apply(handler, [this].concat(args));
+                handler[event].apply(handler, args);
             }
         }, this);
     },
@@ -65,6 +65,12 @@ MCPI.Model.prototype = {
         var side = MCPI.inside(point) ? "inside" : "outside";
         this.counters[side]++;
         this.counters.total++;
+    },
+
+    validateSampleAndStepSizes: function() {
+        if (this.sampleSize % this.stepSize != 0) {
+            throw new Error("The step size must be a multiple of the sample size.");
+        }
     }
 
 };
