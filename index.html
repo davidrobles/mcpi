@@ -2,13 +2,131 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>Estimating PI Using Monte Carlo Simulations</title>
+    <link rel="stylesheet" href="mcpi.css">
+    <link rel="stylesheet" href="css/mcpi-post.css">
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
-<script src="js/mcpi/mcpi-model.js"></script>
-<script src="js/mcpi/mcpi-controller.js"></script>
-<script src="js/mcpi/mcpi-dashboard.js"></script>
-<script src="js/mcpi/mcpi-canvas.js"></script>
+
+<h1>Estimating PI Using Monte Carlo simulations</h1>
+
+<p>More information go to this <a href="http://www.davidrobles.net/blog/2014/06/22/estimating-pi-using-monte-carlo-simulations/">blog post</a></p>.
+
+<div class="mcpiDemo">
+
+    <div class="mcpiCanvasPanel">
+        <canvas id="mcpiCanvasView">
+            Your browser does not support HTML5 Canvas!
+        </canvas>
+    </div>
+
+    <div class="rightPanel">
+
+        <div id="mcpiEquation" class="mcpiEquation">
+            <div class="pi" id="pi">\( \pi \approx 4 \frac{A_{C}}{A_{S}} \)</div>
+        </div>
+
+        <div class="mcpiStatsPanel">
+            <div class="mcpiCounter">
+                <svg height="24" width="24" style="vertical-align: middle;">
+                    <circle cx="12" cy="12" r="12" fill="#2980b9" />
+                </svg>
+                <span id="mcpiInsideCounter" class="mcpiCounter">0</span>
+            </div>
+            <div class="mcpiCounter">
+                <svg height="24" width="24" style="vertical-align: middle;">
+                    <circle cx="12" cy="12" r="12" fill="#c0392b" />
+                </svg>
+                <span id="mcpiOutsideCounter">0</span></span>
+            </div>
+            <meter id="mcpiDemoMeter" value="0" max="100" style="width: 255px"></meter>
+        </div>
+
+        <div class="mcpiConfigPanel">
+            <label for="mcpiSelect">Sample size:</label>
+            <select id="mcpiSampleSize" class="mcpiSelect">
+                <option value="50000" selected>50000</option>
+                <option value="100000">100000</option>
+                <option value="250000">250000</option>
+                <option value="500000">500000</option>
+                <option value="1000000">1000000</option>
+            </select>
+            <br><br>
+            <button id="mcpiStartButton" class="mcpiStartStop mcpiStart" value="start">START</button>
+        </div>
+    </div>
+
+    <div style="clear: both;"></div>
+
+</div>
+
+<div style="clear: both;"></div>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    showProcessingMessages: false
+});
+</script>
+
+
+<script src="mcpi.js"></script>
+<script>
+
+(function() {
+
+    var initFullDemo = function() {
+
+        var model = new MCPI.Model({
+            sampleSize: 5000,
+            stepSize: 500
+        });
+
+        var controller = new MCPI.Controller({
+            model: model
+        });
+
+        var canvasView = new MCPI.CanvasView({
+            canvasEl: document.getElementById("mcpiCanvasView"),
+            size: 300,
+            pointSize: 1,
+            colors: {
+                bg: "#F2D6B3",      // light brown
+                circle: "#D9B89C",  // brown
+                inside: "#2980b9",  // blue
+                outside: "#c0392b"  // red
+            }
+        });
+
+        var dashboardView = new MCPI.DashboardView({
+            model: model,
+            controller: controller,
+            colors: {
+                inside: "#2980b9",  // blue
+                outside: "#c0392b"  // red
+            },
+            elems: {
+                equation: document.getElementById("mcpiEquation"),
+                insideCounter: document.getElementById("mcpiInsideCounter"),
+                outsideCounter: document.getElementById("mcpiOutsideCounter"),
+                meter: document.getElementById("mcpiDemoMeter"),
+                sampleSize: document.getElementById("mcpiSampleSize"),
+                startButton: document.getElementById("mcpiStartButton")
+            }
+        });
+
+        model.bind(canvasView);
+        model.bind(dashboardView);
+        controller.bind(dashboardView);
+
+    };
+
+    window.onload = function() {
+        initFullDemo();
+    };
+
+}());
+
+</script>
 </body>
 </html>

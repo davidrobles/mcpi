@@ -4,7 +4,7 @@ This JavaScript program estimates the value of PI using Monte Carlo simulations.
 
 ## Demo
 
-![Monte Carlo PI Demo](img/demo.png "Monte Carlo PI Demo")
+![Monte Carlo PI Demo](demo.png "Monte Carlo PI Demo")
 
 ## How to Run
 

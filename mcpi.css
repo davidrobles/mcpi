@@ -1,0 +1,104 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #c3cea5;
+}
+
+h1, p {
+    text-align: center;
+}
+
+div.mcpiDemo {
+    margin: 0 auto;
+    background-color: #eaeaea;
+    padding: 15px;
+    width: 600px;
+}
+
+div.mcpiCanvasPanel {
+    float: left;
+}
+
+div.rightPanel {
+    display: table;
+    height: 330px;
+    width: 255px;
+    float: right;
+}
+
+div.mcpiEquation {
+    font-size: 1.3em;
+    border-bottom: 2px solid #cecece;
+    height: 40px;
+    padding: 20px 0;
+    text-align: center;
+}
+
+div.pi {
+    vertical-align: middle;
+}
+
+div.mcpiStatsPanel {
+    border-bottom: 2px solid #cecece;
+    padding: 15px 0;
+}
+
+div.mcpiCounter {
+    margin-left: 80px;
+    margin-bottom: 15px;
+}
+
+div.mcpiConfigPanel {
+    float: right;
+    padding-top: 30px;
+    width: 255px;
+}
+
+button.mcpiStartStop {
+    cursor: pointer;
+    border: 0;
+    display: block;
+    font-size: 1.2em;
+    margin: 0 auto;
+    outline: none;
+    padding: 6px 10px;
+}
+
+button.mcpiStartStop.mcpiStart {
+    background-color: #27ae60;
+    color: #ffffff;
+}
+
+button.mcpiStartStop.mcpiStart:hover {
+    background-color: #2cc36b;
+}
+
+button.mcpiStartStop.mcpiStop {
+    background-color: #c0392b;
+    color: #ffffff;
+}
+
+button.mcpiStartStop.mcpiStop:hover {
+    background-color: #d14233;
+}
+
+select.mcpiSelect {
+    border: 2px solid #cecece;
+    padding: 6px;
+    font-size: 1em;
+    outline: none;
+    float: left;
+}
+
+div.mcpiDemo label {
+    float: left;
+    min-width: 115px;
+    padding: 0 20px 0 0;
+    text-align: right;
+}
+
+#mcpiShortDemo {
+    float: right;
+    margin: 5px 0 0 20px;
+    width: 220px;
+    height: 220px;
+}
