@@ -5,15 +5,3 @@ This JavaScript program estimates the value of PI using Monte Carlo simulations.
 ## Demo
 
 ![Monte Carlo PI Demo](demo.png "Monte Carlo PI Demo")
-
-## How to Run
-
-```javascript
-var model = new MCPI.Model();
-var controller = new MCPI.Controller({
-    model: model,
-    sampleSize: 25000,
-    stepSize: 100
-});
-controller.loop();
-```
